@@ -17,7 +17,8 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/dashboard';
+    // 20230926 로그인 후 dashboard 이동 -> welcome으로 이동
+    public const HOME = '/';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.

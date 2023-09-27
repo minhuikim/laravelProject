@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,4 +29,24 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
+
+Route::get('/articles/create', function () {
+    return view('articles/create');
+});
+
+Route::post('/articles', function (Request $request) {
+    // 비어있지 않고, 문자열이고, 255자를 넘으면 안된다.
+    // 라라벨 유효성 검사
+    // https://laravel.com/docs/10.x/validation#main-content
+    $request->validate([
+        'body' => 'required|string|max:255'
+        // 'body' => [
+        //     'required',
+        //     'string',
+        //     'max:255',
+        // ],
+    ]);
+
+    return 'hello';
+});
