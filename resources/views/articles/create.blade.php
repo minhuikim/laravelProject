@@ -10,10 +10,10 @@
         <div class="container" style="padding:15px">
             <h1 class="text-xl">글쓰기</h1>
             <form action="/articles" method="POST" style="margin-top:3px">
-                <!-- 419(csrf)에러 방지 -->
-                @csrf
                 <!-- <input type="hidden" name="_token" value="<?=csrf_token();?>" /> -->
                 <!-- old(body) : 유효성 검사에 실패해도 입력한 내용이 삭제되지 않게 해줌 -->
+                <!-- 419(csrf)에러 방지 -->
+                @csrf
                 <input type="text" name="body" style="margin-bottom:2px" class="block w-full mb-2 rounded" value="{{ old('body') }}">
                 <!--                 
                     body 에러 출력
