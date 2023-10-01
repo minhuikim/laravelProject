@@ -52,38 +52,36 @@ Route::post('/articles', function (Request $request) {
     ]);
     // dd($input);
 
-    /** 
     ##### pdo를 통해 db 연결
-    // config/database.php
-    $host = config('database.connections.mysql.host');
-    $dbname = config('database.connections.mysql.database');
-    $username = config('database.connections.mysql.username');
-    $password = config('database.connections.mysql.password');
+    // // config/database.php
+    // $host = config('database.connections.mysql.host');
+    // $dbname = config('database.connections.mysql.database');
+    // $username = config('database.connections.mysql.username');
+    // $password = config('database.connections.mysql.password');
 
-    // pdo 객체 생성
-    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    // // pdo 객체 생성
+    // $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 
-    // 쿼리 준비
-    $stmt = $conn->prepare("INSERT INTO articles (body, user_id) VALUES (:body, :user_id)");
+    // // 쿼리 준비
+    // $stmt = $conn->prepare("INSERT INTO articles (body, user_id) VALUES (:body, :user_id)");
 
-    // dd($request->all());
+    // // dd($request->all());
 
-    // body
-    // $body = $request->input('body');
-    // dd($body);
+    // // body
+    // // $body = $request->input('body');
+    // // dd($body);
 
-    // userid
-    // dd($request->user()->id);
-    // dd(Auth::user()->id);
-    // dd(Auth::id());
+    // // userid
+    // // dd($request->user()->id);
+    // // dd(Auth::user()->id);
+    // // dd(Auth::id());
 
-    // 쿼리 값 설정 (바인딩)
-    $stmt->bindValue(':body', $input['body']);
-    $stmt->bindValue(':user_id', Auth::id());
+    // // 쿼리 값 설정 (바인딩)
+    // $stmt->bindValue(':body', $input['body']);
+    // $stmt->bindValue(':user_id', Auth::id());
 
-    // 실행
-    $stmt->execute();
-     */
+    // // 실행
+    // $stmt->execute();
 
     ##### 라라벨 DB class 사용
     // DB 파사드를 이용하는 방법
@@ -112,6 +110,10 @@ Route::post('/articles', function (Request $request) {
         'user_id' => Auth::id()
     ]);
     // -> sail tinker로 조회 시 쿼리빌더를 사용하는 경우 스탠다드 class가 조회되고, 엘로퀀트로 조회 시 article 모델 클래스가 반환
+
+    // 대량할당 취약점 발생 가능
+    // https://laravel.com/docs/10.x/eloquent#mass-assignment
+    // Article::create($input); 
 
     return 'hello';
 });
