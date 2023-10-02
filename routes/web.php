@@ -117,3 +117,10 @@ Route::post('/articles', function (Request $request) {
 
     return 'hello';
 });
+
+Route::get('articles', function() {
+    $articles = Article::all();
+    // ['articles' => $articles] : view페이지에 articles를 넘겨준다
+    return view('articles.index', ['articles' => Article::all()]);
+    // return view('articles.index')->with('articles', $articles);
+});
