@@ -118,15 +118,30 @@ Route::post('/articles', function (Request $request) {
     return 'hello';
 });
 
-Route::get('articles', function() {
+Route::get('articles', function(Request $request) {
+    // 페이지네이션
+    // $page = $request->input('page', 1);
+    $perPage = $request->input('per_page', 2); // 페이지 당 2개씩 출력
+    // $skip = ($page - 1) * $perPage;
+
     $articles = Article::select('body', 'created_at')
     ->latest()  // ->orderBy('created_at', 'desc')
+    // ->skip($skip)   // = offset
+    // ->take($perPage)   // = limit
     // ->oldest()   // asc
-    // ->skip(2)   // = offset
-    // ->take(2)   // = limit
-    ->get();
+    // ->get();
+    // paginate 사용 시 skip, take 안써도 페이지네이션 가능
+    ->paginate($perPage);
+
+    $totalCount = Article::count();
 
     // ['articles' => $articles] : view페이지에 articles를 넘겨준다
-    return view('articles.index', ['articles' => $articles]);
+    return view('articles.index', 
+        [
+            'articles' => $articles,
+            'totalCount' => $totalCount,
+            // 'page' => $page,
+            'perPage' => $perPage
+        ]);
     // return view('articles.index')->with('articles', $articles);
 });
