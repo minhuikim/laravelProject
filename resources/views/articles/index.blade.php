@@ -7,9 +7,9 @@
             <h1 class="text-xl mb-5">글목록</h1> 
             @foreach($articles as $article)
                 <!-- {{ $loop->index }} -->
-                <!-- @if($loop->first)
+                {{-- @if($loop->first)
                     @continue
-                @endif -->
+                @endif --}}
                 <div class="background-white border rounded mb-3 p-3">
                     <!-- echo + js xss공격 방지 -->
                     <p>{{ $article->body }}</p>
@@ -17,7 +17,7 @@
                 </div>
             @endforeach
 
-            <!-- @for($i=0; $i < $articles->count(); $i++)
+            {{-- @for($i=0; $i < $articles->count(); $i++)
                 <?//로그인안한 사용자에게만 출력?>
                 @guest
                 <div class="background-white border rounded mb-3 p-3">
@@ -26,7 +26,7 @@
                 </div>
                 @endguest
             @endfor
-            -->
+            --}}
         </div>
     </body>
 </html>
