@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -121,7 +122,7 @@ Route::post('/articles', function (Request $request) {
 Route::get('articles', function(Request $request) {
     // 페이지네이션
     // $page = $request->input('page', 1);
-    $perPage = $request->input('per_page', 2); // 페이지 당 2개씩 출력
+    $perPage = $request->input('per_page', 5); // 페이지 당 2개씩 출력
     // $skip = ($page - 1) * $perPage;
 
     $articles = Article::select('body', 'created_at')
@@ -134,6 +135,14 @@ Route::get('articles', function(Request $request) {
     ->paginate($perPage);
 
     $totalCount = Article::count();
+
+    $now = Carbon::now();
+    $past = Clone $now;
+    $past->subHours(3);
+
+    dd($now->diff($past));
+    // dd(Carbon::now());
+    // dd(Carbon::now()->subHours(1)->addMinutes(10));
 
     // ['articles' => $articles] : view페이지에 articles를 넘겨준다
     return view('articles.index', 
