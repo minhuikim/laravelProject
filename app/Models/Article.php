@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Article extends Model
 {
@@ -15,4 +16,11 @@ class Article extends Model
 
     // 보호 (id 제외 나머지 허용) - 블랙리스트
     // protected $guarded = ['id'];
+
+    // Article에 User객체 추가
+    public function user(): BelongsTo
+    {
+        // Article : User = many : one
+        return $this->belongsTo(User::class);
+    }
 }

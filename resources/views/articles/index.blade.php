@@ -13,6 +13,7 @@
                 <div class="background-white border rounded mb-3 p-3">
                     <!-- echo + js xss공격 방지 -->
                     <p>{{ $article->body }}</p>
+                    <p>{{$article->user->name}}</p>
                     <p>{{ $article->created_at->diffForHumans() }}</p>
                     <!-- <p>{{ $article->created_at->format("Y년 m월 d일 H:i:s") }}</p> -->
                 </div>

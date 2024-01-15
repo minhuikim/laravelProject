@@ -125,7 +125,8 @@ Route::get('articles', function(Request $request) {
     $perPage = $request->input('per_page', 5); // 페이지 당 2개씩 출력
     // $skip = ($page - 1) * $perPage;
 
-    $articles = Article::select('body', 'created_at')
+    // Article과 User를 user_id로 join
+    $articles = Article::select('body', 'user_id', 'created_at')
     ->latest()  // ->orderBy('created_at', 'desc')
     // ->skip($skip)   // = offset
     // ->take($perPage)   // = limit
@@ -134,13 +135,21 @@ Route::get('articles', function(Request $request) {
     // paginate 사용 시 skip, take 안써도 페이지네이션 가능
     ->paginate($perPage);
 
+    /*
+    $results = DB::table('articles as a')
+        ->select('a.*', 'u.name')
+        ->join('users as u', 'a.user_id', '=', 'u.id')
+        ->latest()
+        ->paginate();
+    */
+
     $totalCount = Article::count();
 
     $now = Carbon::now();
     $past = Clone $now;
     $past->subHours(3);
 
-    dd($now->diff($past));
+    // dd($now->diff($past));
     // dd(Carbon::now());
     // dd(Carbon::now()->subHours(1)->addMinutes(10));
 
@@ -148,9 +157,10 @@ Route::get('articles', function(Request $request) {
     return view('articles.index', 
         [
             'articles' => $articles,
-            'totalCount' => $totalCount,
+            // 'results' => $results
+            // 'totalCount' => $totalCount,
             // 'page' => $page,
-            'perPage' => $perPage
+            // 'perPage' => $perPage
         ]);
     // return view('articles.index')->with('articles', $articles);
 });
