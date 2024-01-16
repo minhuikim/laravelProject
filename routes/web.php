@@ -44,15 +44,10 @@ Route::post('/articles', function (Request $request) {
 Route::get('articles', function(Request $request) {
     $perPage = $request->input('per_page', 5); 
 
-    $articles = Article::select('body', 'user_id', 'created_at')
-    ->latest()
-    ->paginate($perPage);
-
-    $totalCount = Article::count();
-
-    $now = Carbon::now();
-    $past = Clone $now;
-    $past->subHours(3);
+    $articles = Article::with('user')
+        ->select('body', 'user_id', 'created_at')
+        ->latest()
+        ->paginate($perPage);
 
     return view('articles.index', 
         [
