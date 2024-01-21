@@ -26,7 +26,7 @@ require __DIR__ . '/auth.php';
 
 Route::get('/articles/create', function () {
     return view('articles/create');
-});
+})->name('articles.create');
 
 Route::post('/articles', function (Request $request) {
     $input = $request->validate([
@@ -39,7 +39,7 @@ Route::post('/articles', function (Request $request) {
     ]);
 
     return 'hello';
-});
+})->name('articles.store');
 
 Route::get('articles', function(Request $request) {
     $perPage = $request->input('per_page', 5); 
@@ -52,9 +52,9 @@ Route::get('articles', function(Request $request) {
         [
             'articles' => $articles,
         ]);
-});
+})->name('articles.index');
 
 // Route 모델 바인딩
 Route::get('articles/{article}', function(Article $article) {
     return view('articles.show', ['article' => $article]);
-});
+})->name('articles.show');

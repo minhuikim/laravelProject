@@ -5,7 +5,7 @@
     <body>
         <div class="container" style="padding:15px">
             <h1 class="text-xl">글쓰기</h1>
-            <form action="/articles" method="POST" style="margin-top:3px">
+            <form action="{{ route('articles.store') }}" method="POST" style="margin-top:3px">
                 @csrf
                 <input type="text" name="body" style="margin-bottom:2px" class="block w-full mb-2 rounded" value="{{ old('body') }}">
                 @error('body')
