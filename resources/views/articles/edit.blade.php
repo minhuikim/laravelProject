@@ -7,7 +7,7 @@
             <h1 class="text-xl">글 수정하기</h1>
             <form action="{{ route('articles.update', ['article' => $article->id]) }}" method="POST" style="margin-top:3px">
                 @csrf
-                @method('PUT') <!--메서드 스푸핑-->
+                @method('PATCH') <!--메서드 스푸핑-->
                 <input type="text" name="body" style="margin-bottom:2px" class="block w-full mb-2 rounded" value="{{ old('body') ?? $article->body }}">
                 @error('body')
                     <p class="text-xs" style="color:red;margin-bottom:3px"> {{ $message }} </p>

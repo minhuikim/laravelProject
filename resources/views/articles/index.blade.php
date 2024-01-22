@@ -1,4 +1,4 @@
-<html>
+<!DOCTYPE html>
     <head>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -10,10 +10,17 @@
                     <p><a href="{{ route('articles.show', ['article' => $article->id]) }}">{{ $article->body }}</a></p>
                     <p>{{ $article->user->name }}</p>
                     <p>{{ $article->created_at->diffForHumans() }}</p>
-                    <p class="mt-2"></p><a href="{{ route('articles.edit', ['article' => $article->id]) }}"
-                          class="button rounded bg-blue-500 px-2 py-1 text-xs text-white">
-                        수정</a>
-                    </p>
+                    <div class="flex flex-row mt-2">
+                        <p class="mr-1"><a href="{{ route('articles.edit', ['article' => $article->id]) }}"
+                            class="button rounded bg-blue-500 px-2 py-1 text-xs text-white">
+                            수정</a>
+                        </p>
+                        <form action={{ route('articles.delete', ['article' => $article->id]) }} method='POST'>
+                            @csrf
+                            @method('DELETE')
+                            <button class="rounded bg-red-500 px-2 py-1 text-white text-xs">삭제</botton>
+                        </form>
+                    </div>
                 </div>
             @endforeach
         </div>
