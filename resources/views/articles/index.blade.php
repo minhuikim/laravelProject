@@ -15,7 +15,7 @@
                             class="button rounded bg-blue-500 px-2 py-1 text-xs text-white">
                             수정</a>
                         </p>
-                        <form action={{ route('articles.delete', ['article' => $article->id]) }} method='POST'>
+                        <form action={{ route('articles.destroy', ['article' => $article->id]) }} method='POST'>
                             @csrf
                             @method('DELETE')
                             <button class="rounded bg-red-500 px-2 py-1 text-white text-xs">삭제</botton>
