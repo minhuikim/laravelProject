@@ -44,10 +44,15 @@ class ArticleController extends Controller
     }
 
     public function edit(Article $article) {
+        $this->authorize('update', $article);
+
         return view('articles.edit', ['article' => $article]);
     }
 
     public function update(Request $request, Article $article) {
+
+        $this->authorize('update', $article);
+
         // 비어있지 않고, 문자열이고, 255자를 넘으면 안된다.
         $input = $request->validate([
             'body' => 'required|string|max:255'
@@ -60,7 +65,11 @@ class ArticleController extends Controller
     }
 
     public function destroy(Article $article) {
+
+        $this->authorize('delete', $article);
+
         $article->delete();
+
         return redirect()->route('articles.index');
     }
 }
