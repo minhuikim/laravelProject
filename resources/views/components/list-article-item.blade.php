@@ -5,7 +5,7 @@
         </a>
     </p>
     <p>
-        <a href="{{ route('profile', ['user' => $article->user->id]) }}">
+        <a href="{{ route('profile', ['user' => $article->user->username]) }}">
             {{ $article->user->name }}
         </a>
     </p>
