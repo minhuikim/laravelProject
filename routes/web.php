@@ -27,4 +27,4 @@ Route::resource('comments', CommentController::class);
 
 Route::get('profile/{user:username}', [ProfileController::class, 'show'])
 ->name('profile')
-->where('user', '[A-Za-z0-9-]+');
+->where('user', '^[A-Za-z0-9-]+$');
