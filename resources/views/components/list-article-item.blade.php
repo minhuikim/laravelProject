@@ -6,7 +6,7 @@
     </p>
     <p>
         <a href="{{ route('profile', ['user' => $article->user->username]) }}">
-            {{ $article->user->name }}
+            {{ $article->user->username }}
         </a>
     </p>
     <p class="text-xs text-gray-500">
