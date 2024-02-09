@@ -7,6 +7,7 @@ use App\Http\Requests\DeleteArticleRequest;
 use App\Http\Requests\EditArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -31,19 +32,28 @@ class ArticleController extends Controller
         return redirect()->route('articles.index');
     }
 
-    public function index() { 
+    public function index(Request $request) { 
+        $q = $request->input('q');
+
         $articles = Article::with('user')
             ->withCount('comments')
             ->withExists([
                     'comments as recent_comments_exists' => function($query) {
                         $query->where('created_at', '>', Carbon::now()->subDay());
                     }])
+            ->when($q, function ($query, $q) {
+                $query->where('body', 'like', "%$q%")
+                    ->orWhereHas('user', function (Builder $query) use ($q) {
+                        $query->where('username', 'like', "%$q%");
+                    });
+            })
             ->latest()
             ->paginate();
 
         return view('articles.index', 
         [
             'articles' => $articles,
+            'q' => $q
         ]);
     }
 
