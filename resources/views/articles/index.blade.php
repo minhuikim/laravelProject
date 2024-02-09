@@ -6,7 +6,7 @@
             </h2>
             <div>
                 <form method="GET" action="{{ route('articles.index') }}">
-                    <input type="text" name="q" class="rounded border-gray-200" value="{{ $q }}" placeholder="검색" />
+                    <input type="text" name="q" class="rounded border-gray-200" value="{{ $q??'' }}" placeholder="검색" />
                 </form>
             </div>
         </div>
