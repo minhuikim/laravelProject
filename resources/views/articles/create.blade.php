@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="container" style="padding:15px">
+    <div class="container max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <form action="{{ route('articles.store') }}" method="POST" style="margin-top:3px">
             @csrf
             <input type="text" name="body" style="margin-bottom:2px" class="block w-full mb-2 rounded" value="{{ old('body') }}">

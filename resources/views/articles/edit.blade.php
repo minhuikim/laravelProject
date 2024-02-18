@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="container" style="padding:15px">
+    <div class="container max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <form action="{{ route('articles.update', ['article' => $article->id]) }}" method="POST" style="margin-top:3px">
             @csrf
             @method('PATCH') <!--메서드 스푸핑-->
