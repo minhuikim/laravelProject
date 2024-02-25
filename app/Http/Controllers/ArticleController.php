@@ -7,6 +7,7 @@ use App\Http\Requests\DeleteArticleRequest;
 use App\Http\Requests\EditArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
+use App\Util\Logger;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -71,6 +72,8 @@ class ArticleController extends Controller
     public function update(UpdateArticleRequest $request, Article $article) {
 
         $input = $request->validated();
+
+        Logger::logger($request->route()->getName(), Auth::id());
 
         $article->body = $input['body'];
         $article->save();
